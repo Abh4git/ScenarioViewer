@@ -22,7 +22,7 @@ bool ScenarioReader::ReadDefintions()
         return false;
     }
     reader.setDevice(&this->file);
-	//Read..
+    //Read..
     ReadToplogy();
     this->file.close();
     return true;
@@ -39,7 +39,7 @@ bool ScenarioReader::ReadDefintions()
  {
 
 
-	  while(!reader.atEnd() && !reader.hasError())
+      while(!reader.atEnd() && !reader.hasError())
     {
         QString id;
         QString name;
@@ -53,43 +53,44 @@ bool ScenarioReader::ReadDefintions()
         /* If token is StartElement, we'll see if we can read it.*/
         if(token == QXmlStreamReader::StartElement)
         {
-			if (reader.name()=="SceneTopology")
-			{
+            if (reader.name()=="SceneTopology")
+            {
 
-				 reader.readNextStartElement();
-				 ReadSceneItems();
-			}
-			if(reader.name()=="SceneActions")
-			{
-				 reader.readNextStartElement();
-				 ReadActions();	
-			}
-			if(reader.name()=="ComActions")
-			{
-				reader.readNextStartElement();
-				ReadComActions();
-				 
-			}
-        
+                 reader.readNextStartElement();
+                 ReadSceneItems();
+            }
+            if(reader.name()=="SceneActions")
+            {
+                 reader.readNextStartElement();
+                 ReadActions();
+            }
+            if(reader.name()=="ComActions")
+            {
+                reader.readNextStartElement();
+                ReadComActions();
 
-		}
-	  }
-	  return true;
-   
+            }
+
+
+        }
+      }
+      return true;
+
  }
 
  bool ScenarioReader::ReadComActions()
  {
-	   m_CommunicationActionsList==QList<ComAction*>();
+       m_CommunicationActionsList==QList<ComAction*>();
         while(reader.name()!="ComActions" )// && (!reader.isEndElement())  && (!reader.atEnd()))
         {
             QXmlStreamAttributes attribsArg= reader.attributes();
             QString id;
             QString sourceObj="";
-			QString destObj="";
-            int type=0; 
-			int assocSceneId=0; int repeat=0;
-			int waitTime=0;
+            QString destObj="";
+            QString txtTitle="";
+            int type=0;
+            int assocSceneId=0; int repeat=0;
+            int waitTime=0;
             if (attribsArg.count()>0 && reader.name()=="ComAction")
             {
 
@@ -106,28 +107,31 @@ bool ScenarioReader::ReadDefintions()
             {
                 assocSceneId=attribsArg.value("assocsceneactionid").toString().toInt();
             }
-			if (attribsArg.hasAttribute("sourceaddress"))
+            if (attribsArg.hasAttribute("sourceaddress"))
             {
                 sourceObj=attribsArg.value("sourceaddress").toString();
             }
-			if (attribsArg.hasAttribute("destaddress"))
+            if (attribsArg.hasAttribute("destaddress"))
             {
                 destObj=attribsArg.value("destaddress").toString();
             }
-
-			if (attribsArg.hasAttribute("repeat"))
+            if (attribsArg.hasAttribute("title"))
+            {
+                txtTitle=attribsArg.value("title").toString();
+            }
+            if (attribsArg.hasAttribute("repeat"))
             {
                 repeat=attribsArg.value("repeat").toString().toInt();
             }
-			if (attribsArg.hasAttribute("timetonext"))
+            if (attribsArg.hasAttribute("timetonext"))
             {
                 waitTime=attribsArg.value("timetonext").toString().toInt();
             }
-				
+
             ComAction* comActNew= new ComAction(id,type,assocSceneId,sourceObj,destObj,repeat,waitTime);
-			this->m_CommunicationActionsList.append(comActNew);
-            
-			}
+            this->m_CommunicationActionsList.append(comActNew);
+
+            }
             reader.readNext();
 
         }
@@ -136,20 +140,20 @@ bool ScenarioReader::ReadDefintions()
  }
 bool ScenarioReader::ReadSceneItems()
 {
-	  m_TopologyItemsList==QList<SceneItem*>();
-	    while(reader.name()!="SceneTopology" ) //&& (!reader.isEndElement()) )// && (!reader.atEnd()))
+      m_TopologyItemsList==QList<SceneItem*>();
+        while(reader.name()!="SceneTopology" ) //&& (!reader.isEndElement()) )// && (!reader.atEnd()))
         {
             QXmlStreamAttributes attribsArg= reader.attributes();
             QString id;
             QString nameofType="";
-			QString userDefName="";
-			QPoint pointPos;
-			QString pos;
-			QStringList posXY;
-		
-            int type=0; 
-			int order=0; int repeat=0;
-			int waitTime=0;
+            QString userDefName="";
+            QPoint pointPos;
+            QString pos;
+            QStringList posXY;
+
+            int type=0;
+            int order=0; int repeat=0;
+            int waitTime=0;
             if (attribsArg.count()>0 && reader.name()=="SceneItem")
             {
 
@@ -166,22 +170,22 @@ bool ScenarioReader::ReadSceneItems()
             {
                 nameofType=attribsArg.value("name").toString();
             }
-			/*
-			if (attribsArg.hasAttribute("userdefname"))
+            /*
+            if (attribsArg.hasAttribute("userdefname"))
             {
                 userDefName=attribsArg.value("userdefname").toString();
             }*/
-			if (attribsArg.hasAttribute("pos"))
+            if (attribsArg.hasAttribute("pos"))
             {
                pos=attribsArg.value("pos").toString();
-			   posXY= pos.split(",");
+               posXY= pos.split(",");
 
             }
-			
+
             SceneItem* itemNew= new SceneItem( id,type,nameofType, QPoint(posXY.at(0).toInt(),posXY.at(1).toInt()) );
-			m_TopologyItemsList.append(itemNew);
-            
-			}
+            m_TopologyItemsList.append(itemNew);
+
+            }
             reader.readNext();
 
         }
@@ -197,10 +201,11 @@ bool ScenarioReader::ReadActions()
             QXmlStreamAttributes attribsArg= reader.attributes();
             QString id;
             QString sourceObj="";
-			QString destObj="";
-            int type=0; 
-			int order=0; int repeat=0;
-			int waitTime=0;
+            QString destObj="";
+            QString title="";
+            int type=0;
+            int order=0; int repeat=0;
+            int waitTime=0;
             if (attribsArg.count()>0 && reader.name()=="SceneAction")
             {
 
@@ -217,28 +222,31 @@ bool ScenarioReader::ReadActions()
             {
                 order=attribsArg.value("order").toString().toInt();
             }
-			if (attribsArg.hasAttribute("source"))
+            if (attribsArg.hasAttribute("source"))
             {
                 sourceObj=attribsArg.value("source").toString();
             }
-			if (attribsArg.hasAttribute("dest"))
+            if (attribsArg.hasAttribute("dest"))
             {
                 destObj=attribsArg.value("dest").toString();
             }
 
-			if (attribsArg.hasAttribute("repeat"))
+            if (attribsArg.hasAttribute("repeat"))
             {
                 repeat=attribsArg.value("repeat").toString().toInt();
             }
-			if (attribsArg.hasAttribute("waittime"))
+            if (attribsArg.hasAttribute("waittime"))
             {
                 waitTime=attribsArg.value("waittime").toString().toInt();
             }
-				
-            SceneAction* actionNew= new SceneAction(id,type,order,sourceObj,destObj,repeat,waitTime);
-			this->m_ActionsList.append(actionNew);
-            
-			}
+            if (attribsArg.hasAttribute("title"))
+            {
+                title=attribsArg.value("title").toString();
+            }
+            SceneAction* actionNew= new SceneAction(id,type,order,sourceObj,destObj,repeat,waitTime,title);
+            this->m_ActionsList.append(actionNew);
+
+            }
             reader.readNext();
 
         }

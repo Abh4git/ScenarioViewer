@@ -212,19 +212,19 @@ void AutomationElementsView::playCurrentScenario()
 			QGraphicsItem* itemToAdd;
             if (action->getObjectType()==1)
 			{
-                m_itemSecond= this->m_BOMInstanceCreator->createMessagePacketTxt(QPoint(0,0),"Test");
+                m_itemSecond= this->m_BOMInstanceCreator->createMessagePacketTxt(QPoint(0,0),action->gettextTite());
 
             } else if (action->getObjectType()==2)
             {
-                m_itemSecond= this->m_BOMInstanceCreator->createSignalWithText(QPoint(0,0),"Signal");
+                m_itemSecond= this->m_BOMInstanceCreator->createSignalWithText(QPoint(0,0),action->gettextTite());
             }
             else if (action->getObjectType()==3)
             {
-                m_itemSecond= this->m_BOMInstanceCreator->createHeatSteamTransferWithText(QPoint(0,0),"HTSteam");
+                m_itemSecond= this->m_BOMInstanceCreator->createHeatSteamTransferWithText(QPoint(0,0),action->gettextTite());
             }
             else if (action->getObjectType()==4)
             {
-                m_itemSecond= this->m_BOMInstanceCreator->createGenericGraphicItemWithText(QPoint(0,0),"HTSteam","callout.png");
+                m_itemSecond= this->m_BOMInstanceCreator->createGenericGraphicItemWithText(QPoint(0,0),action->gettextTite(),"callout.png");
             }
 
 			messageAnim= new Animation(m_itemSecond,"pos");
