@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<!-- edited with XMLSpy v2005 U (http://www.xmlspy.com) by Tram Chase (SimVentions) -->
+<!-- edited with XMLSPY v5 rel. 4 U (http://www.xmlspy.com) by Bjorn Lofstrand (Pitch Technologies) -->
+<!-- Example BOM. The only namespaces needed apart from the standards-->
+<BOM xmlns="http://www.sisostds.org/schemas/bom" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:omt="http://www.sisostds.org/schemas/IEEE1516.2-2006" xmlns:modelID="http://www.sisostds.org/schemas/modelID"
+xsi:schemaLocation="http://www.sisostds.org/schemas/bom BOM_v2006.xsd">
+<modelIdentification>
+<modelID:name>Pressure_Transmitter</modelID:name>
+<modelID:type>BOM1</modelID:type>
+<modelID:version>1.0 Beta</modelID:version>
+<modelID:modificationDate>2013-05-21</modelID:modificationDate>
+<modelID:securityClassification>Unclassified</modelID:securityClassification>
+<modelID:releaseRestriction>Not for release outside ABB Customers.</modelID:releaseRestriction>
+<modelID:releaseRestriction>Release only to BOM PDG members.</modelID:releaseRestriction>
+<modelID:purpose> Flow Transmitter for Power Plant</modelID:purpose>
+<modelID:applicationDomain>Power System</modelID:applicationDomain>
+<modelID:description>Power Plant itself. has Mechanical Elements -M and Electrical Elements-E</modelID:description>
+<modelID:useLimitation>Not applicable to drive-through operations</modelID:useLimitation>
+<modelID:useHistory>Utilized in the Power Plant FOM</modelID:useHistory>
+<modelID:keyword>
+<modelID:taxonomy>Power System Taxonomy</modelID:taxonomy>
+<modelID:keywordValue>Power System</modelID:keywordValue>
+</modelID:keyword>
+<modelID:keyword>
+<modelID:taxonomy>Sub Area Taxomony</modelID:taxonomy>
+<modelID:keywordValue>Substation</modelID:keywordValue>
+</modelID:keyword>
+<modelID:poc>
+<modelID:pocType>Primary author</modelID:pocType>
+<modelID:pocName>Abhilash</modelID:pocName>
+<modelID:pocOrg>ABB</modelID:pocOrg>
+<modelID:pocTelephone>+91 999</modelID:pocTelephone>
+<modelID:pocEmail>abhilash.g@in.abb.com</modelID:pocEmail>
+</modelID:poc>
+<modelID:poc>
+<modelID:pocType>Release authority</modelID:pocType>
+<modelID:pocOrg>ABB</modelID:pocOrg>
+<modelID:pocTelephone>+1 44 123-456-1000</modelID:pocTelephone>
+<modelID:pocEmail>abb.com</modelID:pocEmail>
+</modelID:poc>
+<modelID:glymph>
+<modelID:alt>32</modelID:alt>
+<modelID:height>32</modelID:height>
+<modelID:image>PT</modelID:image>
+<modelID:type>ico</modelID:type>
+<modelID:width>32</modelID:width>
+</modelID:glymph>
+<modelID:glymph>
+<modelID:alt>32</modelID:alt>
+<modelID:height>32</modelID:height>
+<modelID:image>PT</modelID:image>
+<modelID:type>ico</modelID:type>
+<modelID:width>32</modelID:width>
+</modelID:glymph>
+<modelID:reference>
+<modelID:type>Glossary</modelID:type>
+<modelID:identification>ISBN 12345678901</modelID:identification>
+</modelID:reference>
+<modelID:reference>
+<modelID:type>Conceptual Model</modelID:type>
+<modelID:identification>http://boms.info/resaurantconceptualmodel.doc</modelID:identification>
+</modelID:reference>
+<modelID:other>Featured</modelID:other>
+</modelIdentification>
+<conceptualModelDefinition>
+<stateMachine>
+<name>Ready</name>
+<conceptualEntity>Controller</conceptualEntity>
+<conceptualEntity>Application</conceptualEntity>
+<state>
+<name>Running</name>
+<exitCondition>
+<exitAction>PLNT.AlarmCondition</exitAction>
+<nextState>ActionCommand</nextState>
+</exitCondition>
+</state>
+<state>
+<name>ActionCommand</name>
+<exitCondition>
+<exitAction>PLNT.ShutdownCommandArrived</exitAction>
+<nextState>Test</nextState>
+</exitCondition>
+</state>
+<state>
+<name>Test</name>
+<exitCondition>
+<exitAction>PLNT.TestModeSuccessMessageArrived</exitAction>
+<nextState>Monitoring</nextState>
+</exitCondition>
+</state>
+</stateMachine>
+<Interfaces>
+</Interfaces> 	
+</conceptualModelDefinition>
+<notes>
+<omt:note>
+<omt:label>ID1</omt:label>
+<omt:semantics>This pattern of interplay might be able to be used as a template to support payment patterns for other
+service oriented businesses</omt:semantics>
+</omt:note>
+<omt:note>
+<omt:label>ID2</omt:label>
+<omt:semantics>This pattern action may involve other employees including the host (i.e. Greeter) </omt:semantics>
+</omt:note>
+<omt:note>
+<omt:label>ID3</omt:label>
+<omt:semantics>The support for this trigger may involve a completely other BOM (pattern) to support non-paying
+customer</omt:semantics>
+</omt:note>
+<omt:note>
+<omt:label>ID4</omt:label>
+<omt:semantics>Customer may also request check from other employee conceptual entity types</omt:semantics>
+</omt:note>
+<omt:note>
+<omt:label>ID5</omt:label>
+<omt:semantics>This is the idle state for the Greeter or Waiter</omt:semantics>
+</omt:note>
+</notes>
+</BOM>
