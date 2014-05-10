@@ -8,6 +8,7 @@
 #include <qframe.h>
 #include <QHBoxLayout>
 #include <QFileDialog>
+#include <QApplication>
 //plugins
 #include <qpluginloader.h>
 #include <qplugin.h>
@@ -25,6 +26,7 @@
 #include <SceneAction.h>
 #include <SceneItem.h>
 #include <ScenarioReader.h>
+#include <sceneviewer.h>
 using namespace BOMLIB;
 
 /*class PixmapItem : public QObject, public QGraphicsPixmapItem
@@ -105,48 +107,56 @@ private slots:
 		From read scenario, play the sceneActions.
 	*/
 	void playCurrentScenario();
+    //! zoomScene
+
 private:
 	Ui::AutomationElementsView ui;
+    //! setupWidgets
+    /*!
+        Arranges and sets up GraphicsScene, The right ActionList pane
+        and Message Tables.
+    */
 	void setupWidgets();
+    //! LoadPlugins
+    /*!
+        Checks for QtPlugins and Loads them into memory.
+    */
 	void LoadPlugins();
-    //void CreateBOMGraphics();
+    //! loadTypeDefinitions
+    /*!
+        Uses BOMLibrary to Load the Type Defintions.
+    */
+    void loadTypeDefinitions();
+    //! findInstance
+    /*!
+        Searches the BOMInstance List and finds the instance based on name
+        and instance number.
+        \param name string
+        \param instNo int
+    */
 	BOMInstance* findInstance(QString name,int instNo);
-	IBOMTypeLoadInterface* m_BOMTypeLoader;
+    //! startAnimation
+    /*!
+        Triggers Playing of the scenario by Animation Start
+    */
+    void startAnimation();
+
+    IBOMTypeLoadInterface* m_BOMTypeLoader;
 	IBOMInstanceCreation* m_BOMInstanceCreator;
 	QGraphicsScene* m_graphicsScene;
-	QGraphicsView* m_graphicsView;
-
+    //QGraphicsView* m_graphicsView;
+    SceneViewer* m_graphicsView;
     QAction* m_actConnectElements;
 
-    //QAction* m_actLoadTopology;
-    //QAction* m_actStartAnimation;
-    //QAction* m_actUserScenarioCSA1TopologyLoad;
-    //QAction* m_actUserScenarioCSA1;
-    //QAction* m_actUserScenarioBasedOnSelect;
-    //QAction* m_actPlayUserScenarioBasedOnSelect;
-	QAction* m_actClearAll;
+    QAction* m_actClearAll;
 	QAction* m_actOpenScenarioFile;
 	QAction* m_actPlayScenarioFile;
-	void startAnimation();
-	void loadTypeDefinitions();
-    //void startCSAAnimation();
-	
-	
+    QAction* m_actZoomPlus;
+    QAction* m_actZoomMinus;
 
-	//For animation support
-    //PixmapItem *m_item;
-    //PixmapItem *m_itemSecond;
-    //PixmapItem *m_itemThird;
-
-	/*msgGraphicsItemWithText* m_item;
-	msgGraphicsItemWithText* m_itemSecond;
-	msgGraphicsItemWithText* m_itemThird;*/
-	ActionGraphicsItem* m_item;
-	//MsgGraphicsItem* m_itemSecond;
-	MsgGraphicsItem* m_itemThird;
-    //msgGraphicsItemWithText* m_itemSecond;
-   // QGraphicsItem* m_itemSecond;
-     QObject* m_itemSecond;
+    ActionGraphicsItem* m_item;
+    MsgGraphicsItem* m_itemThird;
+    QObject* m_itemSecond;
     Animation *m_anim;
     Animation *m_animTrig;
 

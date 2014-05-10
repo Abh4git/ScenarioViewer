@@ -10,12 +10,14 @@ HEADERS += ./animation.h \
     ./SceneAction.h \
     ./SceneItem.h \
     ./automationviewer.h \
-    ./automationelementsview.h
+    ./automationelementsview.h \
+    sceneviewer.h
 SOURCES += ./automationelementsview.cpp \
     ./automationviewer.cpp \
     ./main.cpp \
     ./ScenarioReader.cpp \
-    ./SceneAction.cpp
+    ./SceneAction.cpp \
+    sceneviewer.cpp
 FORMS += ./automationviewer.ui \
     ./automationelementsview.ui
 RESOURCES += automationviewer.qrc
